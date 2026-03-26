@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>田中純平 — Portfolio</title>
+<meta name="description" content="現場で掴み、構造にし、動かす。田中純平のポートフォリオ。">
+<meta property="og:title" content="田中純平 — Portfolio">
+<meta property="og:description" content="現場で掴み、構造にし、動かす。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Noto+Serif+JP:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: #080808; color: #E0D8CC;
+    font-family: 'Noto Serif JP', Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection { background: #D4A574; color: #080808; }
+
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction: column;
+    justify-content: center; align-items: center; text-align: center;
+    padding: 60px 20px; position: relative;
+  }
+  .hero-label {
+    font-size: 9px; letter-spacing: 8px; color: #2a2a2a;
+    margin-bottom: 48px; opacity: 0; animation: heroIn 0.8s ease forwards 0.2s;
+  }
+  .hero-msg {
+    font-size: clamp(22px, 5vw, 36px); font-weight: 300; line-height: 1.7;
+    color: #E0D8CC; opacity: 0; animation: heroIn 0.8s ease forwards 0.4s;
+  }
+  .hero-name-block {
+    opacity: 0; animation: heroIn 0.8s ease forwards 0.7s; margin-top: 48px;
+  }
+  .hero-name { font-size: 13px; font-weight: 300; color: #555; letter-spacing: 1px; }
+  .hero-name-en {
+    font-size: 9px; color: #333; letter-spacing: 3px; margin-top: 4px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 40px; font-size: 9px; color: #222;
+    letter-spacing: 4px; animation: breathe 3s infinite;
+  }
+
+  /* Section Label */
+  .sec-label {
+    font-size: 9px; letter-spacing: 5px; color: #333;
+    text-transform: uppercase; margin-bottom: 10px; text-align: center;
+  }
+  .sec-title {
+    font-size: 18px; font-weight: 300; color: #E0D8CC; text-align: center;
+  }
+  .sec-sub {
+    font-size: 10px; color: #444; margin-top: 6px; text-align: center;
+  }
+
+  /* Divider */
+  .divider {
+    display: flex; align-items: center; justify-content: center; padding: 48px 0;
+  }
+  .divider::after {
+    content: ''; width: 40px; height: 1px;
+    background: linear-gradient(90deg, transparent, #222, transparent);
+  }
+
+  /* Stats Grid */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+  .stat-card {
+    text-align: center; padding: 20px 8px;
+    background: #0D0D0D; border-radius: 10px; border: 1px solid #151515;
+  }
+  .stat-num {
+    font-size: 24px; font-weight: 300;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .stat-unit { font-size: 8px; color: #444; letter-spacing: 2px; margin-top: 2px; }
+  .stat-label { font-size: 9px; color: #555; margin-top: 8px; line-height: 1.5; }
+
+  /* Genri Flow */
+  .genri-flow { display: flex; justify-content: center; align-items: center; gap: 0; }
+  .genri-step { width: 90px; text-align: center; padding: 16px 8px; border-radius: 8px; border: 1px solid transparent; }
+  .genri-step.accent { background: rgba(212,165,116,0.06); border-color: rgba(212,165,116,0.13); }
+  .genri-icon { font-size: 20px; margin-bottom: 4px; }
+  .genri-label { font-size: 13px; }
+  .genri-desc { font-size: 9px; color: #555; margin-top: 4px; line-height: 1.5; }
+  .genri-arrow { color: #2a2a2a; font-size: 14px; padding: 0 6px; }
+
+  /* AI Team */
+  .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .ai-card {
+    background: #0D0D0D; border-radius: 8px; padding: 16px;
+    border: 1px solid #151515; border-top: 2px solid;
+  }
+  .ai-name { font-size: 13px; margin-bottom: 2px; }
+  .ai-role { font-size: 10px; color: #666; margin-bottom: 8px; }
+  .ai-desc { font-size: 10px; color: #555; line-height: 1.7; }
+  .ai-center { text-align: center; font-size: 10px; color: #333; padding: 8px 0; }
+
+  /* Constellation */
+  .constellation { width: 100%; max-width: 380px; margin: 0 auto; display: block; }
+  .constellation-detail {
+    margin-top: 12px; background: #0D0D0D; border-radius: 10px;
+    padding: 18px 20px; animation: fadeUp 0.35s ease-out;
+  }
+  .constellation-detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .constellation-detail-icon { font-size: 18px; }
+  .constellation-detail-label { font-size: 14px; }
+  .constellation-detail-desc { font-size: 11px; color: #888; line-height: 1.9; }
+  .constellation-hint { text-align: center; padding: 8px 0; font-size: 9px; color: #222; animation: breathe 3s infinite; }
+
+  /* Outputs Grid */
+  .output-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .output-card {
+    background: #0D0D0D; border-radius: 8px; padding: 14px;
+    border: 1px solid #151515; position: relative;
+  }
+  .output-dot {
+    position: absolute; top: 10px; right: 10px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #D4A574; box-shadow: 0 0 6px rgba(212,165,116,0.4);
+  }
+  .output-name { font-size: 12px; color: #C8C0B4; margin-bottom: 4px; padding-right: 14px; }
+  .output-tech { font-size: 9px; color: #555; margin-bottom: 6px; }
+  .output-status {
+    display: inline-block; font-size: 8px; letter-spacing: 1px;
+    padding: 2px 8px; border-radius: 10px;
+  }
+  .output-status.live { color: #D4A574; border: 1px solid rgba(212,165,116,0.2); }
+  .output-status.done { color: #555; border: 1px solid #222; }
+  .output-toggle { text-align: center; padding: 14px 0; font-size: 10px; color: #444; cursor: pointer; }
+
+  /* Services */
+  .svc-card {
+    background: #0D0D0D; border-radius: 8px; padding: 16px 18px;
+    border: 1px solid #151515; border-left: 3px solid;
+    cursor: pointer; transition: all 0.25s; margin-bottom: 8px;
+  }
+  .svc-card.active { background: #111; }
+  .svc-header { display: flex; justify-content: space-between; align-items: baseline; }
+  .svc-step { font-size: 9px; color: #444; font-family: 'Cormorant Garamond'; }
+  .svc-title { font-size: 14px; margin-left: 10px; }
+  .svc-toggle { color: #333; font-size: 12px; transition: transform 0.2s; }
+  .svc-toggle.open { transform: rotate(45deg); }
+  .svc-desc { font-size: 11px; color: #777; margin-top: 10px; line-height: 1.9; animation: fadeUp 0.3s ease-out; }
+  .svc-flow { display: flex; justify-content: center; gap: 20px; padding: 20px 0; font-size: 10px; color: #2a2a2a; }
+
+  /* CTA */
+  .cta { text-align: center; padding: 20px 0 40px; }
+  .cta-title { font-size: 16px; font-weight: 300; color: #E0D8CC; line-height: 1.8; }
+  .cta-sub { font-size: 11px; color: #555; margin-top: 12px; line-height: 1.8; }
+  .cta-btns { display: flex; justify-content: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 24px; border-radius: 4px;
+    font-size: 11px; text-decoration: none;
+    transition: all 0.25s; border: none; cursor: pointer;
+    font-family: 'Noto Serif JP', Georgia, serif;
+  }
+  .btn-primary { color: #080808; background: #E0D8CC; }
+  .btn-primary:hover { background: #ccc5b8; transform: translateY(-1px); }
+  .btn-secondary { color: #555; background: transparent; border: 1px solid #222; }
+  .btn-secondary:hover { border-color: #444; color: #888; }
+
+  /* Footer Quote */
+  .footer-quote {
+    text-align: center; padding: 20px 0 16px;
+    font-size: 11px; color: #D4A574; line-height: 2;
+    font-style: italic; font-family: 'Cormorant Garamond', Georgia, serif;
+  }
+  .footer-attr { font-size: 9px; color: #333; margin-top: 6px; font-style: normal; }
+  .footer {
+    margin-top: 40px; padding: 20px 16px; border-top: 1px solid #111;
+    text-align: center; font-size: 8px; color: #1a1a1a; letter-spacing: 2px;
+  }
+
+  /* Animations */
+  @keyframes heroIn { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: translateY(0); } }
+  @keyframes breathe { 0%,100% { opacity: 0.3; } 50% { opacity: 0.8; } }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Reveal on scroll */
+  .rv { opacity: 0; transform: translateY(14px); transition: all 0.65s cubic-bezier(.16,1,.3,1); }
+  .rv.v { opacity: 1; transform: translateY(0); }
+
+  /* Responsive */
+  @media (max-width: 520px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .ai-grid { grid-template-columns: 1fr; }
+    .genri-flow { flex-wrap: wrap; gap: 4px; }
+    .genri-arrow { display: none; }
+    .output-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="hero-label">PORTFOLIO</div>
+  <div class="hero-msg">現場で掴み、構造にし、動かす。</div>
+  <div class="hero-name-block">
+    <div class="hero-name">田中 純平</div>
+    <div class="hero-name-en">Jumpei Tanaka</div>
+  </div>
+  <div class="hero-scroll">scroll</div>
+</section>
+
+<div class="wrap">
+
+  <!-- ═══════════ AT A GLANCE ═══════════ -->
+  <div class="sec-label rv">At a Glance</div>
+  <div class="stats rv">
+    <div class="stat-card">
+      <div class="stat-num" style="color:#D4A574">86</div>
+      <div class="stat-unit">seats</div>
+      <div class="stat-label">焼鳥66 + 焼肉20</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#7E9DBF">4</div>
+      <div class="stat-unit">AIs</div>
+      <div class="stat-label">並列チーム運用</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#8DAF8B">14+</div>
+      <div class="stat-unit">outputs</div>
+      <div class="stat-label">制作・実装済</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#B898C0">1</div>
+      <div class="stat-unit">原理</div>
+      <div class="stat-label">独自思考体系</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ GENRI THINK ═══════════ -->
+  <div class="sec-label rv">Thinking Framework</div>
+  <div class="sec-title rv">原理思考</div>
+  <div class="sec-sub rv">現象から原理を抽出し、別の現場に転用する</div>
+  <div style="height:20px"></div>
+  <div class="genri-flow rv">
+    <div class="genri-step">
+      <div class="genri-icon" style="color:#888">目</div>
+      <div class="genri-label" style="color:#888">現象</div>
+      <div class="genri-desc">現場で起きていること</div>
+    </div>
+    <div class="genri-arrow">→</div>
+    <div class="genri-step">
+      <div class="genri-icon" style="color:#999">△</div>
+      <div class="genri-label" style="color:#999">抽象</div>
+      <div class="genri-desc">構造を取り出す</div>
+    </div>
+    <div class="genri-arrow">→</div>
+    <div class="genri-step accent">
+      <div class="genri-icon" style="color:#D4A574">◉</div>
+      <div class="genri-label" style="color:#D4A574">原理</div>
+      <div class="genri-desc">転用可能な法則</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ AI TEAM ═══════════ -->
+  <div class="sec-label rv">AI Team Design</div>
+  <div class="sec-title rv">4つのAIをチームとして使う</div>
+  <div style="height:20px"></div>
+  <div class="ai-grid rv">
+    <div class="ai-card" style="border-top-color:#D4A574">
+      <div class="ai-name" style="color:#D4A574">Claude</div>
+      <div class="ai-role">思考整理・統合</div>
+      <div class="ai-desc">構造化と深い対話。全プロジェクトの思考パートナー。</div>
+    </div>
+    <div class="ai-card" style="border-top-color:#8DAF8B">
+      <div class="ai-name" style="color:#8DAF8B">ChatGPT</div>
+      <div class="ai-role">創造・発散</div>
+      <div class="ai-desc">アイデアの拡張とクリエイティブ方針の生成。</div>
+    </div>
+    <div class="ai-card" style="border-top-color:#7E9DBF">
+      <div class="ai-name" style="color:#7E9DBF">Gemini</div>
+      <div class="ai-role">構造・検証</div>
+      <div class="ai-desc">設計の整合性チェックと現実性の検証。</div>
+    </div>
+    <div class="ai-card" style="border-top-color:#B898C0">
+      <div class="ai-name" style="color:#B898C0">Grok</div>
+      <div class="ai-role">拡散・別視点</div>
+      <div class="ai-desc">バズ戦略とSNS最適化。常識を壊す視点。</div>
+    </div>
+  </div>
+  <div class="ai-center rv">→ 統合して一つのアウトプットにする ←</div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ POLYMATH MAP ═══════════ -->
+  <div class="sec-label rv">Polymath Map</div>
+  <div class="sec-title rv">6領域を横断する</div>
+  <div class="sec-sub rv">星をタップで詳細</div>
+  <div style="height:12px"></div>
+
+  <div id="constellation-container" class="rv">
+    <svg id="constellation-svg" viewBox="0 0 300 260" class="constellation">
+      <defs>
+        <filter id="gl"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+      </defs>
+    </svg>
+    <div id="constellation-detail"></div>
+    <div id="constellation-hint" class="constellation-hint">星をタップして探索する</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ OUTPUT MAP ═══════════ -->
+  <div class="sec-label rv">Output Map</div>
+  <div class="sec-title rv">作ってきたもの</div>
+  <div style="height:20px"></div>
+  <div id="output-container" class="rv">
+    <div class="output-grid" id="output-grid"></div>
+    <div class="output-toggle" id="output-toggle"></div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ SERVICES ═══════════ -->
+  <div class="sec-label rv">Services</div>
+  <div class="sec-title rv">あなたの段階に合わせて</div>
+  <div style="height:20px"></div>
+  <div id="services-container" class="rv"></div>
+  <div class="svc-flow rv">
+    <span>研修</span><span>→</span><span>設計</span><span>→</span><span>納品</span>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ CTA ═══════════ -->
+  <div class="cta rv">
+    <div class="cta-title">
+      「何から始めればいいですか？」<br>その質問のまま、来てください。
+    </div>
+    <div class="cta-sub">整理するところから一緒にやります。</div>
+    <div class="cta-btns">
+      <a href="https://www.instagram.com/ai_map2003/" target="_blank" rel="noopener" class="btn btn-primary">Instagram でメッセージする</a>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════ QUOTE ═══════════ -->
+  <div class="footer-quote rv">
+    "All men by nature desire to know."
+    <div class="footer-attr">— Aristotle, Metaphysics 980a</div>
+  </div>
+
+</div>
+
+<div class="footer">&copy; 2026 Jumpei Tanaka</div>
+
+<script>
+/* ═══ DATA ═══ */
+const DOMAINS = [
+  { id:"restaurant", icon:"🔥", label:"飲食経営", x:50, y:15, color:"#D4A574", desc:"芦田商店（焼鳥66席）と焼肉屋（20席）。2業態の比較から飲食業の構造を抽出し、原理に変換する実験場。" },
+  { id:"philosophy", icon:"☯", label:"東洋哲学", x:92, y:40, color:"#8DAF8B", desc:"禅・道・易経・仏教思想。西洋ロジックでは到達できない認識の型を提供し、原理思考の深層OSとして機能。" },
+  { id:"ai", icon:"⚡", label:"AI活用", x:80, y:80, color:"#7E9DBF", desc:"4つのAIをチームとして並列運用。それぞれの得意領域を把握し、思考の外部器官として設計・統合。" },
+  { id:"content", icon:"✦", label:"コンテンツ", x:20, y:80, color:"#C4877E", desc:"静雪ブランド。原理思考を映像的・詩的に翻訳し、Instagram/noteで発信。情報提供ではなく世界観の構築。" },
+  { id:"education", icon:"◈", label:"人材育成", x:8, y:40, color:"#B898C0", desc:"SINGLE→DOUBLE→TRIPLEフレーム。可能態から現実態への移行を設計する、アリストテレス的教育論。" },
+  { id:"design", icon:"◎", label:"体験設計", x:50, y:52, color:"#A0A8B8", desc:"プロデュー酒、256診断、AI Team OS。抽象的な構造を人が触れる体験に変換する全領域のハブ。" },
+];
+const LINKS = [["restaurant","philosophy"],["restaurant","ai"],["restaurant","education"],["philosophy","content"],["philosophy","ai"],["ai","education"],["ai","content"],["content","design"],["education","design"],["design","restaurant"]];
+
+const OUTPUTS = [
+  { name:"GAS売上自動レポート", tech:"Google Apps Script", status:"運用中", live:true },
+  { name:"256アーキタイプ診断", tech:"React / 3D / PDF", status:"公開中", live:true },
+  { name:"AI Team OS", tech:"React / Vercel", status:"公開中", live:true },
+  { name:"4AI教育OS", tech:"Next.js / GAS", status:"MVP完成", live:false },
+  { name:"売上通知Bot", tech:"Python / Sheets API", status:"動作確認済", live:false },
+  { name:"静雪コンテンツ一式", tech:"マルチAI制作", status:"設計完了", live:false },
+  { name:"教育マニュアルPDF", tech:"Python / reportlab", status:"現場使用中", live:true },
+  { name:"プロデュー酒 設計書", tech:"Tally / Airtable / AI", status:"設計完了", live:false },
+  { name:"The Aristotle System", tech:"React / SVG", status:"設計完了", live:false },
+  { name:"ポリマス経営設計図", tech:"React / SVG", status:"設計完了", live:false },
+];
+
+const SERVICES = [
+  { step:"01", title:"AIリテラシー研修", desc:"『AIって何？』から手を動かすところまで。現場の人間が現場の言葉で教える。", color:"#D4A574" },
+  { step:"02", title:"AI活用設計", desc:"業務のどこにAIを組み込むかを設計。費用対効果の見極めから実装支援まで。", color:"#7E9DBF" },
+  { step:"03", title:"エージェント設計書", desc:"自動化と人間判断の切り分けを構造化し、運用可能な設計書として納品。", color:"#8DAF8B" },
+];
+
+/* ═══ CONSTELLATION ═══ */
+(function() {
+  const svg = document.getElementById('constellation-svg');
+  const detailEl = document.getElementById('constellation-detail');
+  const hintEl = document.getElementById('constellation-hint');
+  const w = 300, h = 260;
+  let active = null;
+
+  function pos(d) { return { x: d.x/100*(w-50)+25, y: d.y/100*(h-50)+25 }; }
+
+  function render() {
+    const ns = 'http://www.w3.org/2000/svg';
+    // Clear existing (keep defs)
+    Array.from(svg.querySelectorAll('.dyn')).forEach(el => el.remove());
+
+    // Lines
+    LINKS.forEach(([fId, tId]) => {
+      const f = pos(DOMAINS.find(d=>d.id===fId));
+      const t = pos(DOMAINS.find(d=>d.id===tId));
+      const hl = active===fId || active===tId;
+      const line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', f.x); line.setAttribute('y1', f.y);
+      line.setAttribute('x2', t.x); line.setAttribute('y2', t.y);
+      line.setAttribute('stroke', hl ? '#444' : '#1a1a1a');
+      line.setAttribute('stroke-width', hl ? '0.8' : '0.4');
+      line.classList.add('dyn');
+      line.style.transition = 'all 0.4s';
+      svg.appendChild(line);
+    });
+
+    // Nodes
+    DOMAINS.forEach(d => {
+      const p = pos(d);
+      const isA = active === d.id;
+      const g = document.createElementNS(ns, 'g');
+      g.classList.add('dyn');
+      g.style.cursor = 'pointer';
+      g.addEventListener('click', () => { active = active===d.id ? null : d.id; render(); });
+
+      const c = document.createElementNS(ns, 'circle');
+      c.setAttribute('cx', p.x); c.setAttribute('cy', p.y);
+      c.setAttribute('r', isA ? 22 : 17);
+      c.setAttribute('fill', isA ? d.color+'18' : '#0D0D0D');
+      c.setAttribute('stroke', isA ? d.color : d.color+'44');
+      c.setAttribute('stroke-width', isA ? '1.2' : '0.6');
+      if(isA) c.setAttribute('filter', 'url(#gl)');
+      c.style.transition = 'all 0.3s';
+      g.appendChild(c);
+
+      const icon = document.createElementNS(ns, 'text');
+      icon.setAttribute('x', p.x); icon.setAttribute('y', p.y - 1);
+      icon.setAttribute('text-anchor', 'middle'); icon.setAttribute('font-size', '11');
+      icon.textContent = d.icon;
+      g.appendChild(icon);
+
+      const label = document.createElementNS(ns, 'text');
+      label.setAttribute('x', p.x); label.setAttribute('y', p.y + 11);
+      label.setAttribute('text-anchor', 'middle');
+      label.setAttribute('fill', isA ? d.color : '#666');
+      label.setAttribute('font-size', '6.5');
+      label.setAttribute('font-family', "'Noto Serif JP', Georgia");
+      label.textContent = d.label;
+      g.appendChild(label);
+
+      svg.appendChild(g);
+    });
+
+    // Detail
+    if(active) {
+      const d = DOMAINS.find(dd => dd.id === active);
+      hintEl.style.display = 'none';
+      detailEl.style.display = 'block';
+      detailEl.className = 'constellation-detail';
+      detailEl.style.border = '1px solid ' + d.color + '22';
+      detailEl.innerHTML = `
+        <div class="constellation-detail-header">
+          <span class="constellation-detail-icon">${d.icon}</span>
+          <span class="constellation-detail-label" style="color:${d.color}">${d.label}</span>
+        </div>
+        <div class="constellation-detail-desc">${d.desc}</div>`;
+    } else {
+      detailEl.style.display = 'none';
+      hintEl.style.display = 'block';
+    }
+  }
+  render();
+})();
+
+/* ═══ OUTPUTS ═══ */
+(function() {
+  const grid = document.getElementById('output-grid');
+  const toggle = document.getElementById('output-toggle');
+  let expanded = false;
+
+  function render() {
+    const items = expanded ? OUTPUTS : OUTPUTS.slice(0,6);
+    grid.innerHTML = items.map(o => `
+      <div class="output-card">
+        ${o.live ? '<div class="output-dot"></div>' : ''}
+        <div class="output-name">${o.name}</div>
+        <div class="output-tech">${o.tech}</div>
+        <div class="output-status ${o.live ? 'live' : 'done'}">${o.status}</div>
+      </div>`).join('');
+    toggle.textContent = expanded ? '閉じる' : '他 ' + (OUTPUTS.length - 6) + '件を見る';
+  }
+  toggle.addEventListener('click', () => { expanded = !expanded; render(); });
+  render();
+})();
+
+/* ═══ SERVICES ═══ */
+(function() {
+  const container = document.getElementById('services-container');
+  let activeIdx = null;
+
+  function render() {
+    container.innerHTML = SERVICES.map((s, i) => {
+      const isActive = activeIdx === i;
+      return `
+      <div class="svc-card ${isActive ? 'active' : ''}" data-idx="${i}"
+           style="border-left-color:${s.color};${isActive ? 'border-color:'+s.color+'33;border-left-color:'+s.color : ''}">
+        <div class="svc-header">
+          <div style="display:flex;align-items:baseline;gap:10px">
+            <span class="svc-step">STEP ${s.step}</span>
+            <span class="svc-title" style="color:${s.color}">${s.title}</span>
+          </div>
+          <div class="svc-toggle ${isActive ? 'open' : ''}">+</div>
+        </div>
+        ${isActive ? '<div class="svc-desc">' + s.desc + '</div>' : ''}
+      </div>`;
+    }).join('');
+
+    container.querySelectorAll('.svc-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const idx = parseInt(card.dataset.idx);
+        activeIdx = activeIdx === idx ? null : idx;
+        render();
+      });
+    });
+  }
+  render();
+})();
+
+/* ═══ SCROLL REVEAL ═══ */
+(function() {
+  const els = document.querySelectorAll('.rv');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting) { e.target.classList.add('v'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
+  els.forEach(el => obs.observe(el));
+})();
+</script>
+</body>
+</html>
